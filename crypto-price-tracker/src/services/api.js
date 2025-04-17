@@ -11,31 +11,41 @@ const API_ENDPOINTS = {
 };
 
 /**
- * Converts GMT time to GMT+8 (China Standard Time)
- * @param {string} gmtDateStr - Date string in GMT format (e.g., "2025-04-17 08:10:12" or ISO format)
+ * Formats a date to GMT+8 (China Standard Time)
+ * @param {string} dateStr - Date string in any valid format
  * @returns {string} Formatted date string in GMT+8
  */
-const convertToGMT8 = (gmtDateStr) => {
+const convertToGMT8 = (dateStr) => {
   try {
     // Create a Date object from the input string
-    // This handles both space-separated format and ISO format
-    const gmtDate = new Date(gmtDateStr);
+    const date = new Date(dateStr);
+
+    // Calculate the UTC time
+    const utcYear = date.getUTCFullYear();
+    const utcMonth = date.getUTCMonth();
+    const utcDay = date.getUTCDate();
+    const utcHour = date.getUTCHours();
+    const utcMinute = date.getUTCMinutes();
+    const utcSecond = date.getUTCSeconds();
+
+    // Create a new Date object with UTC time
+    const utcDate = new Date(Date.UTC(utcYear, utcMonth, utcDay, utcHour, utcMinute, utcSecond));
 
     // Add 8 hours for GMT+8
-    const gmt8Date = new Date(gmtDate.getTime() + (8 * 60 * 60 * 1000));
+    const gmt8Date = new Date(utcDate.getTime() + (8 * 60 * 60 * 1000));
 
     // Format the date to a readable string (YYYY-MM-DD HH:MM:SS GMT+8)
-    const gmt8Year = gmt8Date.getFullYear();
-    const gmt8Month = String(gmt8Date.getMonth() + 1).padStart(2, '0');
-    const gmt8Day = String(gmt8Date.getDate()).padStart(2, '0');
-    const gmt8Hour = String(gmt8Date.getHours()).padStart(2, '0');
-    const gmt8Minute = String(gmt8Date.getMinutes()).padStart(2, '0');
-    const gmt8Second = String(gmt8Date.getSeconds()).padStart(2, '0');
+    const gmt8Year = gmt8Date.getUTCFullYear();
+    const gmt8Month = String(gmt8Date.getUTCMonth() + 1).padStart(2, '0');
+    const gmt8Day = String(gmt8Date.getUTCDate()).padStart(2, '0');
+    const gmt8Hour = String(gmt8Date.getUTCHours()).padStart(2, '0');
+    const gmt8Minute = String(gmt8Date.getUTCMinutes()).padStart(2, '0');
+    const gmt8Second = String(gmt8Date.getUTCSeconds()).padStart(2, '0');
 
     return `${gmt8Year}-${gmt8Month}-${gmt8Day} ${gmt8Hour}:${gmt8Minute}:${gmt8Second} (GMT+8)`;
   } catch (error) {
     console.error('Error converting time to GMT+8:', error);
-    return gmtDateStr; // Return original string if conversion fails
+    return dateStr; // Return original string if conversion fails
   }
 };
 

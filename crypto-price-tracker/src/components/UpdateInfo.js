@@ -12,16 +12,30 @@ const UpdateInfo = ({ updateTime, onRefresh, isLoading }) => {
   // Get current time in GMT+8
   const getCurrentTime = () => {
     const now = new Date();
-    const gmt8Time = new Date(now.getTime() + (8 * 60 * 60 * 1000));
 
-    const year = gmt8Time.getFullYear();
-    const month = String(gmt8Time.getMonth() + 1).padStart(2, '0');
-    const day = String(gmt8Time.getDate()).padStart(2, '0');
-    const hours = String(gmt8Time.getHours()).padStart(2, '0');
-    const minutes = String(gmt8Time.getMinutes()).padStart(2, '0');
-    const seconds = String(gmt8Time.getSeconds()).padStart(2, '0');
+    // Calculate the UTC time
+    const utcYear = now.getUTCFullYear();
+    const utcMonth = now.getUTCMonth();
+    const utcDay = now.getUTCDate();
+    const utcHour = now.getUTCHours();
+    const utcMinute = now.getUTCMinutes();
+    const utcSecond = now.getUTCSeconds();
 
-    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} (GMT+8)`;
+    // Create a new Date object with UTC time
+    const utcDate = new Date(Date.UTC(utcYear, utcMonth, utcDay, utcHour, utcMinute, utcSecond));
+
+    // Add 8 hours for GMT+8
+    const gmt8Date = new Date(utcDate.getTime() + (8 * 60 * 60 * 1000));
+
+    // Format the date to a readable string (YYYY-MM-DD HH:MM:SS GMT+8)
+    const gmt8Year = gmt8Date.getUTCFullYear();
+    const gmt8Month = String(gmt8Date.getUTCMonth() + 1).padStart(2, '0');
+    const gmt8Day = String(gmt8Date.getUTCDate()).padStart(2, '0');
+    const gmt8Hour = String(gmt8Date.getUTCHours()).padStart(2, '0');
+    const gmt8Minute = String(gmt8Date.getUTCMinutes()).padStart(2, '0');
+    const gmt8Second = String(gmt8Date.getUTCSeconds()).padStart(2, '0');
+
+    return `${gmt8Year}-${gmt8Month}-${gmt8Day} ${gmt8Hour}:${gmt8Minute}:${gmt8Second} (GMT+8)`;
   };
 
   return (
