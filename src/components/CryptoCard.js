@@ -7,11 +7,10 @@ import './CryptoCard.css';
  * @param {string} props.currencyName - Name of the cryptocurrency
  * @param {string} props.price - Current price of the cryptocurrency
  * @param {string} props.ticker - Ticker symbol of the cryptocurrency
- * @param {string} props.date - Date of the price data
  * @param {string} props.changePercent24Hr - 24-hour price change percentage
  * @param {string} props.icon - Icon for the cryptocurrency (optional)
  */
-const CryptoCard = ({ currencyName, price, ticker, date, changePercent24Hr, icon }) => {
+const CryptoCard = ({ currencyName, price, ticker, changePercent24Hr, icon }) => {
   // Map currency names to their respective icons and colors
   const getCurrencyInfo = (name) => {
     const currencyMap = {
@@ -65,7 +64,6 @@ const CryptoCard = ({ currencyName, price, ticker, date, changePercent24Hr, icon
         <p className={`crypto-change ${isPositiveChange ? 'positive' : 'negative'}`}>
           24h: {isPositiveChange ? '+' : ''}{changePercent}%
         </p>
-        <p className="crypto-date">{date}</p>
       </div>
     </div>
   );
