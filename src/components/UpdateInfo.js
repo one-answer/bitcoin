@@ -42,7 +42,7 @@ const UpdateInfo = ({ updateTime, onRefresh, isLoading }) => {
     <div className="update-info">
       <div className="update-info-text">
         <p className="current-time">
-          Current time: {getCurrentTime()}
+          Updated time: {getCurrentTime()}
         </p>
       </div>
       <button
