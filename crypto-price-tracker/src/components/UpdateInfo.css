@@ -15,17 +15,11 @@
   gap: 5px;
 }
 
-.update-time {
+.current-time {
   color: #666;
   margin: 0;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   font-weight: bold;
-}
-
-.current-time {
-  color: #888;
-  margin: 0;
-  font-size: 0.8rem;
 }
 
 .refresh-button {

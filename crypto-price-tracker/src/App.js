@@ -7,7 +7,6 @@ import { fetchCryptoPrices } from './services/api';
 
 function App() {
   const [cryptoData, setCryptoData] = useState([]);
-  const [updateTime, setUpdateTime] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -20,7 +19,6 @@ function App() {
 
       if (response.status === 'success') {
         setCryptoData(response.data);
-        setUpdateTime(response.updateTime);
       } else {
         throw new Error('Failed to fetch cryptocurrency data');
       }
@@ -51,7 +49,6 @@ function App() {
 
       <main className="main-content">
         <UpdateInfo
-          updateTime={updateTime}
           onRefresh={loadCryptoPrices}
           isLoading={isLoading}
         />
@@ -72,6 +69,7 @@ function App() {
                 price={crypto.price}
                 ticker={crypto.ticker}
                 date={crypto.date}
+                changePercent24Hr={crypto.changePercent24Hr}
               />
             ))}
           </div>

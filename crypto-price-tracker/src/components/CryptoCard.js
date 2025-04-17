@@ -8,9 +8,10 @@ import './CryptoCard.css';
  * @param {string} props.price - Current price of the cryptocurrency
  * @param {string} props.ticker - Ticker symbol of the cryptocurrency
  * @param {string} props.date - Date of the price data
+ * @param {string} props.changePercent24Hr - 24-hour price change percentage
  * @param {string} props.icon - Icon for the cryptocurrency (optional)
  */
-const CryptoCard = ({ currencyName, price, ticker, date, icon }) => {
+const CryptoCard = ({ currencyName, price, ticker, date, changePercent24Hr, icon }) => {
   // Map currency names to their respective icons and colors
   const getCurrencyInfo = (name) => {
     const currencyMap = {
@@ -42,6 +43,10 @@ const CryptoCard = ({ currencyName, price, ticker, date, icon }) => {
   // Extract the numeric part of the price for display
   const priceValue = typeof price === 'string' ? price : `${price} USD`;
 
+  // Format the 24-hour change percentage
+  const changePercent = changePercent24Hr ? parseFloat(changePercent24Hr).toFixed(2) : '0.00';
+  const isPositiveChange = parseFloat(changePercent) >= 0;
+
   return (
     <div className="crypto-card" style={{ borderColor: currencyInfo.color }}>
       <div className="crypto-icon" style={{ background: currencyInfo.gradient }}>
@@ -51,6 +56,9 @@ const CryptoCard = ({ currencyName, price, ticker, date, icon }) => {
         <h2>{currencyInfo.englishName}</h2>
         <h3>{currencyName} <span className="ticker">({ticker})</span></h3>
         <p className="crypto-price">{priceValue}</p>
+        <p className={`crypto-change ${isPositiveChange ? 'positive' : 'negative'}`}>
+          24h: {isPositiveChange ? '+' : ''}{changePercent}%
+        </p>
         <p className="crypto-date">{date}</p>
       </div>
     </div>

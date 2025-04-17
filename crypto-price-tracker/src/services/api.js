@@ -2,38 +2,35 @@
  * API service for fetching cryptocurrency prices
  */
 
-// Define API endpoints for different cryptocurrencies
+// Define OKX API endpoints
+const OKX_BASE_URL = 'https://www.okx.com/api/v5/market';
 const API_ENDPOINTS = {
-  BTC: 'https://tsanghi.com/api/fin/crypto/realtime?token=demo&ticker=BTC/USD',
-  ETH: 'https://tsanghi.com/api/fin/crypto/realtime?token=demo&ticker=ETH/USD',
-  DOGE: 'https://tsanghi.com/api/fin/crypto/realtime?token=demo&ticker=DOGE/USD'
+  BTC: `${OKX_BASE_URL}/ticker?instId=BTC-USDT`,
+  ETH: `${OKX_BASE_URL}/ticker?instId=ETH-USDT`,
+  DOGE: `${OKX_BASE_URL}/ticker?instId=DOGE-USDT`
 };
 
 /**
  * Converts GMT time to GMT+8 (China Standard Time)
- * @param {string} gmtDateStr - Date string in GMT format (e.g., "2025-04-17 08:10:12")
+ * @param {string} gmtDateStr - Date string in GMT format (e.g., "2025-04-17 08:10:12" or ISO format)
  * @returns {string} Formatted date string in GMT+8
  */
 const convertToGMT8 = (gmtDateStr) => {
   try {
-    // Parse the GMT date string
-    const [datePart, timePart] = gmtDateStr.split(' ');
-    const [year, month, day] = datePart.split('-').map(Number);
-    const [hour, minute, second] = timePart.split(':').map(Number);
-
-    // Create a Date object (which will be in local time)
-    const gmtDate = new Date(Date.UTC(year, month - 1, day, hour, minute, second));
+    // Create a Date object from the input string
+    // This handles both space-separated format and ISO format
+    const gmtDate = new Date(gmtDateStr);
 
     // Add 8 hours for GMT+8
     const gmt8Date = new Date(gmtDate.getTime() + (8 * 60 * 60 * 1000));
 
     // Format the date to a readable string (YYYY-MM-DD HH:MM:SS GMT+8)
-    const gmt8Year = gmt8Date.getUTCFullYear();
-    const gmt8Month = String(gmt8Date.getUTCMonth() + 1).padStart(2, '0');
-    const gmt8Day = String(gmt8Date.getUTCDate()).padStart(2, '0');
-    const gmt8Hour = String(gmt8Date.getUTCHours()).padStart(2, '0');
-    const gmt8Minute = String(gmt8Date.getUTCMinutes()).padStart(2, '0');
-    const gmt8Second = String(gmt8Date.getUTCSeconds()).padStart(2, '0');
+    const gmt8Year = gmt8Date.getFullYear();
+    const gmt8Month = String(gmt8Date.getMonth() + 1).padStart(2, '0');
+    const gmt8Day = String(gmt8Date.getDate()).padStart(2, '0');
+    const gmt8Hour = String(gmt8Date.getHours()).padStart(2, '0');
+    const gmt8Minute = String(gmt8Date.getMinutes()).padStart(2, '0');
+    const gmt8Second = String(gmt8Date.getSeconds()).padStart(2, '0');
 
     return `${gmt8Year}-${gmt8Month}-${gmt8Day} ${gmt8Hour}:${gmt8Minute}:${gmt8Second} (GMT+8)`;
   } catch (error) {
@@ -43,34 +40,55 @@ const convertToGMT8 = (gmtDateStr) => {
 };
 
 /**
- * Maps API data to a more user-friendly format
- * @param {Array} apiData - The raw data from the API
+ * Maps OKX API data to a more user-friendly format
+ * @param {Array} cryptoData - The array of cryptocurrency data objects
  * @returns {Array} Formatted cryptocurrency data
  */
-const formatCryptoData = (apiData) => {
-  return apiData.map(crypto => {
-    // Extract the currency name from the ticker
+const formatCryptoData = (cryptoData) => {
+  return cryptoData.map(crypto => {
+    // Extract the instrument ID to determine which cryptocurrency this is
+    const instId = crypto.instId;
     let currencyName = 'Unknown';
-    if (crypto.ticker === 'BTC/USD') currencyName = '比特币';
-    else if (crypto.ticker === 'ETH/USD') currencyName = '以太币';
-    else if (crypto.ticker === 'DOGE/USD') currencyName = '狗狗币';
+    let ticker = 'Unknown';
 
-    // Convert GMT time to GMT+8
-    const gmt8Date = convertToGMT8(crypto.date);
+    if (instId === 'BTC-USDT') {
+      currencyName = '比特币';
+      ticker = 'BTC/USDT';
+    } else if (instId === 'ETH-USDT') {
+      currencyName = '以太币';
+      ticker = 'ETH/USDT';
+    } else if (instId === 'DOGE-USDT') {
+      currencyName = '狗狗币';
+      ticker = 'DOGE/USDT';
+    }
+
+    // Format the price to show USD with 2 decimal places
+    const priceUsd = parseFloat(crypto.last).toFixed(2);
+
+    // Calculate 24h change percentage
+    const open24h = parseFloat(crypto.open24h);
+    const last = parseFloat(crypto.last);
+    const changePercent24Hr = ((last - open24h) / open24h * 100).toFixed(2);
+
+    // Convert timestamp to date (OKX provides timestamp in milliseconds)
+    const timestamp = parseInt(crypto.ts);
+    const date = new Date(timestamp);
+    const gmt8Date = convertToGMT8(date.toISOString());
 
     return {
       currencyName,
-      price: `${crypto.close} USD`,
-      ticker: crypto.ticker,
-      date: gmt8Date
+      price: `${priceUsd} USDT`,
+      ticker,
+      date: gmt8Date,
+      changePercent24Hr
     };
   });
 };
 
 /**
- * Fetches data from a single API endpoint
+ * Fetches data from a single OKX API endpoint
  * @param {string} url - The API endpoint URL
- * @returns {Promise<Array>} The formatted cryptocurrency data
+ * @returns {Promise<Object>} The cryptocurrency data
  */
 const fetchFromEndpoint = async (url) => {
   const response = await fetch(url);
@@ -81,15 +99,15 @@ const fetchFromEndpoint = async (url) => {
 
   const result = await response.json();
 
-  if (result.code !== 200) {
-    throw new Error(`API error! Code: ${result.code}, Message: ${result.msg}`);
+  if (result.code !== '0' || !result.data || result.data.length === 0) {
+    throw new Error('Invalid API response format or empty data');
   }
 
-  return result.data;
+  return result.data[0]; // OKX returns an array, but we only need the first item
 };
 
 /**
- * Fetches cryptocurrency prices from multiple API endpoints
+ * Fetches cryptocurrency prices from OKX API
  * @returns {Promise<Object>} The combined API response with cryptocurrency data
  */
 export const fetchCryptoPrices = async () => {
@@ -101,19 +119,15 @@ export const fetchCryptoPrices = async () => {
       fetchFromEndpoint(API_ENDPOINTS.DOGE)
     ]);
 
-    // Combine the data from all endpoints
-    const combinedData = [...btcData, ...ethData, ...dogeData];
+    // Combine the data into an array
+    const combinedData = [btcData, ethData, dogeData];
 
     // Format the combined data
     const formattedData = formatCryptoData(combinedData);
 
-    // Get the update time from the first data point (assuming all data points have similar timestamps)
-    const updateTime = combinedData.length > 0 ? combinedData[0].date : '';
-
     return {
       status: 'success',
-      data: formattedData,
-      updateTime
+      data: formattedData
     };
   } catch (error) {
     console.error('Error fetching cryptocurrency prices:', error);

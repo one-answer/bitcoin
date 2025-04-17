@@ -14,12 +14,12 @@ const UpdateInfo = ({ updateTime, onRefresh, isLoading }) => {
     const now = new Date();
     const gmt8Time = new Date(now.getTime() + (8 * 60 * 60 * 1000));
 
-    const year = gmt8Time.getUTCFullYear();
-    const month = String(gmt8Time.getUTCMonth() + 1).padStart(2, '0');
-    const day = String(gmt8Time.getUTCDate()).padStart(2, '0');
-    const hours = String(gmt8Time.getUTCHours()).padStart(2, '0');
-    const minutes = String(gmt8Time.getUTCMinutes()).padStart(2, '0');
-    const seconds = String(gmt8Time.getUTCSeconds()).padStart(2, '0');
+    const year = gmt8Time.getFullYear();
+    const month = String(gmt8Time.getMonth() + 1).padStart(2, '0');
+    const day = String(gmt8Time.getDate()).padStart(2, '0');
+    const hours = String(gmt8Time.getHours()).padStart(2, '0');
+    const minutes = String(gmt8Time.getMinutes()).padStart(2, '0');
+    const seconds = String(gmt8Time.getSeconds()).padStart(2, '0');
 
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds} (GMT+8)`;
   };
@@ -27,9 +27,6 @@ const UpdateInfo = ({ updateTime, onRefresh, isLoading }) => {
   return (
     <div className="update-info">
       <div className="update-info-text">
-        <p className="update-time">
-          {updateTime ? `Last updated: ${updateTime}` : 'Loading...'}
-        </p>
         <p className="current-time">
           Current time: {getCurrentTime()}
         </p>
