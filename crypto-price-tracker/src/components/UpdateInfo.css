@@ -1,0 +1,78 @@
+.update-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  margin: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.update-info-text {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.update-time {
+  color: #666;
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.current-time {
+  color: #888;
+  margin: 0;
+  font-size: 0.8rem;
+}
+
+.refresh-button {
+  background: linear-gradient(135deg, #4caf50, #2e7d32);
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 10px 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  font-weight: bold;
+}
+
+.refresh-button:hover {
+  background: linear-gradient(135deg, #45a049, #255d24);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.refresh-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+}
+
+.refresh-button:disabled {
+  background: linear-gradient(135deg, #cccccc, #999999);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width: 600px) {
+  .update-info {
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  .update-info-text {
+    width: 100%;
+    text-align: center;
+  }
+
+  .refresh-button {
+    width: 100%;
+    padding: 12px;
+  }
+}
