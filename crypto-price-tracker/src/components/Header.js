@@ -14,7 +14,7 @@ const Header = () => {
           </div>
           <h1>加密货币实时行情</h1>
         </div>
-        <p>比特币、以太币和狗狗币的实时价格追踪</p>
+        <p>比特币、以太币、狗狗币和索拉纳的实时价格追踪</p>
         <div className="data-source">数据来源： <a href="https://www.okx.com/zh-hans/price/bitcoin-btc" target="_blank" rel="noopener noreferrer">OKX.com</a></div>
       </div>
     </header>

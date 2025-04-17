@@ -32,6 +32,12 @@ const CryptoCard = ({ currencyName, price, ticker, date, changePercent24Hr, icon
         color: '#c3a634',
         englishName: 'Dogecoin',
         gradient: 'linear-gradient(135deg, #c3a634, #ba9f33)'
+      },
+      '索拉纳': {
+        icon: 'S',
+        color: '#14f195',
+        englishName: 'Solana',
+        gradient: 'linear-gradient(135deg, #14f195, #00c2c2)'
       }
     };
 

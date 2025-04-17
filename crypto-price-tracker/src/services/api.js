@@ -7,7 +7,8 @@ const OKX_BASE_URL = 'https://www.okx.com/api/v5/market';
 const API_ENDPOINTS = {
   BTC: `${OKX_BASE_URL}/ticker?instId=BTC-USDT`,
   ETH: `${OKX_BASE_URL}/ticker?instId=ETH-USDT`,
-  DOGE: `${OKX_BASE_URL}/ticker?instId=DOGE-USDT`
+  DOGE: `${OKX_BASE_URL}/ticker?instId=DOGE-USDT`,
+  SOL: `${OKX_BASE_URL}/ticker?instId=SOL-USDT`
 };
 
 /**
@@ -70,6 +71,9 @@ const formatCryptoData = (cryptoData) => {
     } else if (instId === 'DOGE-USDT') {
       currencyName = '狗狗币';
       ticker = 'DOGE/USDT';
+    } else if (instId === 'SOL-USDT') {
+      currencyName = '索拉纳';
+      ticker = 'SOL/USDT';
     }
 
     // Format the price to show USD with 2 decimal places
@@ -123,14 +127,15 @@ const fetchFromEndpoint = async (url) => {
 export const fetchCryptoPrices = async () => {
   try {
     // Fetch data from all endpoints in parallel
-    const [btcData, ethData, dogeData] = await Promise.all([
+    const [btcData, ethData, dogeData, solData] = await Promise.all([
       fetchFromEndpoint(API_ENDPOINTS.BTC),
       fetchFromEndpoint(API_ENDPOINTS.ETH),
-      fetchFromEndpoint(API_ENDPOINTS.DOGE)
+      fetchFromEndpoint(API_ENDPOINTS.DOGE),
+      fetchFromEndpoint(API_ENDPOINTS.SOL)
     ]);
 
     // Combine the data into an array
-    const combinedData = [btcData, ethData, dogeData];
+    const combinedData = [btcData, ethData, dogeData, solData];
 
     // Format the combined data
     const formattedData = formatCryptoData(combinedData);
