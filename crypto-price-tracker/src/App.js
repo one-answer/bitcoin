@@ -4,6 +4,7 @@ import Header from './components/Header';
 import CryptoCard from './components/CryptoCard';
 import UpdateInfo from './components/UpdateInfo';
 import { fetchCryptoPrices } from './services/api';
+import { setCustomFavicon } from './utils/setFavicon';
 
 function App() {
   const [cryptoData, setCryptoData] = useState([]);
@@ -32,6 +33,10 @@ function App() {
 
   // Load data when component mounts
   useEffect(() => {
+    // 设置自定义favicon
+    setCustomFavicon();
+
+    // 加载加密货币价格数据
     loadCryptoPrices();
 
     // Set up auto-refresh every 60 seconds
