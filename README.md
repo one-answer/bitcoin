@@ -1,3 +1,24 @@
+# Cryptocurrency Price Tracker / 加密货币实时行情
+
+## 网站功能 Features
+
+- 实时获取并展示比特币（BTC）、以太币（ETH）、狗狗币（DOGE）、索拉纳（SOL）的最新价格和24小时涨跌幅。
+  - Real-time fetching and display of the latest prices and 24-hour change percentages for Bitcoin (BTC), Ethereum (ETH), Dogecoin (DOGE), and Solana (SOL).
+- 价格数据来源于 [OKX.com](https://www.okx.com/zh-hans/price/bitcoin-btc)。
+  - Price data sourced from [OKX.com](https://www.okx.com/zh-hans/price/bitcoin-btc).
+- 支持一键刷新价格，并每60秒自动刷新一次。
+  - Supports one-click price refresh and auto-refreshes every 60 seconds.
+- 显示当前数据更新时间（北京时间/GMT+8）。
+  - Shows the current data update time (Beijing Time/GMT+8).
+- 直观的卡片式界面，展示币种名称（中英文）、价格、涨跌幅、币种图标。
+  - Intuitive card-style UI showing coin name (Chinese & English), price, change percentage, and coin icon.
+- 响应式设计，适配不同屏幕。
+  - Responsive design for different screen sizes.
+- 自定义网站 favicon。
+  - Custom website favicon.
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
