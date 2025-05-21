@@ -1,0 +1,74 @@
+# Cryptocurrency Price Tracker - Complete Guide
+
+> «Cryptocurrency Price Tracker» is a real-time web application that monitors and displays the latest prices and 24-hour change percentages for major cryptocurrencies. Available at https://bitcoin.aolifu.org, this application features live price updates for Bitcoin (BTC), Ethereum (ETH), Dogecoin (DOGE), and Solana (SOL), with automatic refreshing, responsive design, and comprehensive SEO optimization.
+
+## Application Background
+Cryptocurrency has become an increasingly important part of the global financial landscape, with millions of people worldwide tracking prices and market movements. Our Cryptocurrency Price Tracker brings real-time price information to users in an intuitive and visually appealing interface, helping both casual observers and serious investors stay informed about the latest cryptocurrency market trends.
+
+Built using React and modern web technologies, our implementation provides a clean, card-based interface for monitoring cryptocurrency prices. The application is fully optimized for SEO and supports both English and Chinese languages, making it accessible to a global audience.
+
+## Detailed Features
+
+### Real-Time Price Tracking
+The application provides up-to-date price information for major cryptocurrencies:
+- **Live Data**: Real-time prices sourced from OKX.com API
+- **Major Cryptocurrencies**: Track Bitcoin (BTC), Ethereum (ETH), Dogecoin (DOGE), and Solana (SOL)
+- **24-Hour Changes**: See price movements over the last 24 hours with clear visual indicators
+
+Users can easily monitor price trends with color-coded indicators showing whether prices are rising (green) or falling (red).
+
+### Automatic Refreshing
+The application keeps data current without manual intervention:
+- **60-Second Auto-Refresh**: Prices automatically update every minute
+- **Manual Refresh Option**: One-click refresh button for immediate updates
+- **Loading Indicators**: Clear visual feedback during data refreshing
+
+This ensures users always have access to the most current cryptocurrency prices without needing to manually reload the page.
+
+### Time Zone Adaptation
+The application provides clear timestamp information:
+- **GMT+8 Time Display**: All timestamps shown in Beijing Time (GMT+8)
+- **Formatted Timestamps**: Clear date and time formatting for easy reading
+- **Update Time Tracking**: See exactly when the price data was last refreshed
+
+This feature helps users understand when the displayed data was last updated, providing context for price information.
+
+### Responsive Card Interface
+The cryptocurrency information is presented in an intuitive card format:
+- **Visual Card Design**: Each cryptocurrency displayed in its own card with distinctive styling
+- **Currency Branding**: Color-coded cards with currency-specific icons and colors
+- **Bilingual Information**: Currency names displayed in both Chinese and English
+- **Clear Price Display**: Prominent display of current prices and change percentages
+
+The card-based design makes it easy to scan and compare prices across different cryptocurrencies at a glance.
+
+## Technical Features
+- **React**: Modern front-end development with component-based architecture
+- **REST API Integration**: Real-time data fetching from cryptocurrency exchanges
+- **Responsive Design**: Adapts to any screen size from mobile to desktop
+- **Bilingual Support**: Interface elements in both Chinese and English
+- **SEO Optimization**: Enhanced discoverability through search engines
+- **SVG Graphics**: High-quality, scalable cryptocurrency icons and graphics
+- **Accessibility Features**: ARIA attributes and semantic HTML for better accessibility
+
+## SEO Optimization
+The application includes comprehensive SEO features:
+- **Meta Tags**: Optimized title, description, keywords, author, and robots tags
+- **Open Graph & Twitter Cards**: Enhanced social media sharing appearance with SVG images
+- **Structured Data**: JSON-LD markup with WebApplication and FinancialProduct schemas
+- **Semantic HTML**: Semantic tags and attributes like article, section, itemProp, etc.
+- **Accessibility**: ARIA attributes and roles for better screen reader compatibility
+- **Multilingual Support**: Language alternate tags for Chinese and English
+- **Sitemap**: XML sitemap for better search engine indexing
+- **Canonical Links**: Prevents duplicate content issues
+
+## Usage Tips
+To get the most out of Cryptocurrency Price Tracker:
+- **Regular Monitoring**: Check back frequently to stay updated on price movements
+- **Manual Refresh**: Use the refresh button when you need the very latest data
+- **Trend Analysis**: Watch the 24-hour change percentages to identify trends
+- **Mobile Access**: Access the tracker on your smartphone for on-the-go updates
+- **Time Context**: Note the timestamp to understand when the data was last updated
+- **Color Indicators**: Green indicates price increases, red indicates decreases
+
+Our Cryptocurrency Price Tracker offers a streamlined way to monitor the volatile cryptocurrency market, providing essential price information in a clean, accessible interface for both casual and serious cryptocurrency enthusiasts.

@@ -3,6 +3,7 @@ import './UpdateInfo.css';
 
 /**
  * Component to display the last update time and refresh button
+ * Enhanced with semantic HTML and improved accessibility for SEO
  * @param {Object} props - Component props
  * @param {string} props.updateTime - The last update time
  * @param {Function} props.onRefresh - Function to call when refresh button is clicked
@@ -39,20 +40,21 @@ const UpdateInfo = ({ updateTime, onRefresh, isLoading }) => {
   };
 
   return (
-    <div className="update-info">
+    <section className="update-info" aria-label="数据更新信息">
       <div className="update-info-text">
-        <p className="current-time">
-          Updated time: {getCurrentTime()}
+        <p className="current-time" aria-live="polite">
+          <span aria-label="数据更新时间">更新时间 / Updated time:</span> <time dateTime={new Date().toISOString()}>{getCurrentTime()}</time>
         </p>
       </div>
       <button
         className="refresh-button"
         onClick={onRefresh}
         disabled={isLoading}
+        aria-label="刷新加密货币价格数据"
       >
-        {isLoading ? 'Refreshing...' : 'Refresh Prices'}
+        {isLoading ? '正在刷新...' : '刷新价格'}
       </button>
-    </div>
+    </section>
   );
 };
 

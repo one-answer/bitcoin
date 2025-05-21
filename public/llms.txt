@@ -1,0 +1,18 @@
+# Cryptocurrency Price Tracker
+
+> Track real-time prices and 24-hour changes for Bitcoin, Ethereum, Dogecoin, and Solana with automatic updates every minute at https://bitcoin.aolifu.org
+
+## Features
+- **Real-Time Prices** - Monitor current prices for major cryptocurrencies with data from OKX.com
+- **Automatic Updates** - Prices refresh automatically every 60 seconds with manual refresh option
+- **24-Hour Changes** - See price movements with color-coded indicators (green for gains, red for losses)
+- **Time Zone Adaptation** - All timestamps displayed in Beijing Time (GMT+8) for easy reference
+- **Responsive Design** - Optimized interface for both desktop and mobile devices
+- **Bilingual Support** - Interface elements in both Chinese and English
+
+## Key Capabilities
+1. Track Bitcoin (BTC), Ethereum (ETH), Dogecoin (DOGE), and Solana (SOL) in real-time
+2. View current prices and 24-hour percentage changes at a glance
+3. Get automatic price updates every minute without manual page refreshing
+4. See exactly when price data was last updated with clear timestamps
+5. Access cryptocurrency information on any device with responsive design

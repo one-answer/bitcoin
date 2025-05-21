@@ -52,21 +52,21 @@ function App() {
     <div className="App">
       <Header />
 
-      <main className="main-content">
+      <main className="main-content" role="main" aria-label="加密货币价格列表">
         <UpdateInfo
           onRefresh={loadCryptoPrices}
           isLoading={isLoading}
         />
 
-        {error && <div className="error-message">{error}</div>}
+        {error && <div className="error-message" role="alert" aria-live="assertive">{error}</div>}
 
         {isLoading && cryptoData.length === 0 ? (
-          <div className="loading-container">
-            <div className="loading-spinner"></div>
-            <p>Loading cryptocurrency prices...</p>
+          <div className="loading-container" aria-live="polite">
+            <div className="loading-spinner" aria-hidden="true"></div>
+            <p>正在加载加密货币价格... Loading cryptocurrency prices...</p>
           </div>
         ) : (
-          <div className="crypto-container">
+          <section className="crypto-container" aria-label="加密货币价格卡片">
             {cryptoData.map((crypto, index) => (
               <CryptoCard
                 key={index}
@@ -77,12 +77,12 @@ function App() {
                 changePercent24Hr={crypto.changePercent24Hr}
               />
             ))}
-          </div>
+          </section>
         )}
       </main>
 
-      <footer className="footer">
-        <p>&copy; {new Date().getFullYear()} Cryptocurrency Price Tracker</p>
+      <footer className="footer" role="contentinfo">
+        <p>&copy; {new Date().getFullYear()} Cryptocurrency Price Tracker | <a href="/sitemap.xml" aria-label="网站地图">Sitemap</a></p>
       </footer>
     </div>
   );

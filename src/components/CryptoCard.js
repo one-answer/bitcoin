@@ -3,6 +3,7 @@ import './CryptoCard.css';
 
 /**
  * Component for displaying a cryptocurrency card with price information
+ * Enhanced with semantic HTML and improved accessibility for SEO
  * @param {Object} props - Component props
  * @param {string} props.currencyName - Name of the cryptocurrency
  * @param {string} props.price - Current price of the cryptocurrency
@@ -53,19 +54,25 @@ const CryptoCard = ({ currencyName, price, ticker, changePercent24Hr, icon }) =>
   const isPositiveChange = parseFloat(changePercent) >= 0;
 
   return (
-    <div className="crypto-card" style={{ borderColor: currencyInfo.color }}>
-      <div className="crypto-icon" style={{ background: currencyInfo.gradient }}>
+    <article className="crypto-card" style={{ borderColor: currencyInfo.color }} itemScope itemType="https://schema.org/FinancialProduct">
+      <div className="crypto-icon" style={{ background: currencyInfo.gradient }} aria-hidden="true">
         {icon || currencyInfo.icon}
       </div>
       <div className="crypto-details">
-        <h2>{currencyInfo.englishName}</h2>
-        <h3>{currencyName} <span className="ticker">({ticker})</span></h3>
-        <p className="crypto-price">{priceValue}</p>
-        <p className={`crypto-change ${isPositiveChange ? 'positive' : 'negative'}`}>
+        <h2 itemProp="name">{currencyInfo.englishName}</h2>
+        <h3 itemProp="alternateName">{currencyName} <span className="ticker">({ticker})</span></h3>
+        <p className="crypto-price" itemProp="offers" itemScope itemType="https://schema.org/Offer">
+          <span itemProp="price">{priceValue}</span>
+        </p>
+        <p
+          className={`crypto-change ${isPositiveChange ? 'positive' : 'negative'}`}
+          aria-label={`24小时价格变化: ${isPositiveChange ? '上涨' : '下跌'} ${Math.abs(parseFloat(changePercent))}%`}
+        >
           24h: {isPositiveChange ? '+' : ''}{changePercent}%
         </p>
+        <meta itemProp="description" content={`${currencyName}(${currencyInfo.englishName})实时价格和24小时涨跌幅`} />
       </div>
-    </div>
+    </article>
   );
 };
 
